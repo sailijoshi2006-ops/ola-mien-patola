@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ola Mien Patola - CA Inter</title>
+<title>Ola Mien Patola - CA Inter Exam Simulator</title>
 <style>
 body {
     font-family: Arial;
@@ -25,96 +25,109 @@ button {
     padding: 15px;
     margin: 10px;
     border-radius: 10px;
+    text-align: left;
+}
+input[type="text"] {
+    width: 95%;
+    padding: 5px;
+    margin: 5px 0;
 }
 </style>
 </head>
 <body>
 
 <h1>Ola Mien Patola 💕</h1>
-<h3>CA Inter Practice Portal</h3>
+<h3>Advanced Accounting Exam Simulator</h3>
 
 <div id="home">
-    <button onclick="openSubject('accounts')">Advanced Accounting</button>
-    <button onclick="openSubject('law')">Corporate & Other Laws</button>
-    <button onclick="openSubject('tax')">Taxation</button>
-    <button onclick="openSubject('cost')">Cost & Management Accounting</button>
-    <button onclick="openSubject('audit')">Auditing & Ethics</button>
-    <button onclick="openSubject('fm')">Financial Management & SM</button>
+    <h3>Select Topic</h3>
+    <button onclick="startExam('Branch Accounts')">Branch Accounts</button>
+    <button onclick="startExam('Amalgamation')">Amalgamation</button>
+    <button onclick="startExam('Consolidation')">Consolidation</button>
 </div>
 
-<div id="subjectMenu" class="section">
-    <h2 id="subjectTitle"></h2>
-
-    <button onclick="generateFullMock()">Generate 100 Mark Mock</button>
-    <button onclick="generateHalfMock()">Generate 50 Mark Mock</button>
-    <button onclick="showNotes()">Important Notes</button>
-    <button onclick="showDifficulty()">Hard → Easy Practice</button>
+<div id="examSection" class="section">
+    <h3 id="examTopic"></h3>
+    <div id="questionsArea"></div>
+    <button onclick="submitAnswers()">Submit & Check</button>
     <button onclick="goHome()">Back</button>
+</div>
 
-    <div id="contentArea"></div>
+<div id="resultSection" class="section">
+    <h3>Result</h3>
+    <div id="resultArea"></div>
+    <button onclick="goHome()">Back to Topics</button>
 </div>
 
 <script>
-let currentSubject = "";
+// Question Bank
+const questionBank = {
+    "Branch Accounts": [
+        {q:"Q1: Prepare branch trading account for 2026", a:"Answer 1"},
+        {q:"Q2: How to record branch remittances?", a:"Answer 2"},
+        {q:"Q3: Goods sent at invoice price, journal entry?", a:"Answer 3"}
+    ],
+    "Amalgamation": [
+        {q:"Q1: Journal entries for amalgamation", a:"Answer 1"},
+        {q:"Q2: Calculation of purchase consideration", a:"Answer 2"},
+        {q:"Q3: AS-14 treatment of assets", a:"Answer 3"}
+    ],
+    "Consolidation": [
+        {q:"Q1: Prepare consolidated balance sheet", a:"Answer 1"},
+        {q:"Q2: Minority interest calculation", a:"Answer 2"},
+        {q:"Q3: Treatment of goodwill", a:"Answer 3"}
+    ]
+};
 
-function openSubject(subject) {
-    currentSubject = subject;
+let currentTopic = "";
+let userAnswers = [];
+
+function startExam(topic) {
+    currentTopic = topic;
+    userAnswers = [];
     document.getElementById("home").style.display = "none";
-    document.getElementById("subjectMenu").style.display = "block";
-    document.getElementById("subjectTitle").innerText = subject.toUpperCase();
-    document.getElementById("contentArea").innerHTML = "";
+    document.getElementById("examSection").style.display = "block";
+    document.getElementById("examTopic").innerText = topic + " - Mock Paper";
+    
+    let html = "";
+    questionBank[topic].forEach((q, index)=>{
+        html += `<div class="question-box">
+                    <p>${q.q}</p>
+                    <input type="text" id="answer${index}" placeholder="Type your answer here">
+                 </div>`;
+    });
+    document.getElementById("questionsArea").innerHTML = html;
+}
+
+function submitAnswers() {
+    const questions = questionBank[currentTopic];
+    let score = 0;
+    let resultHTML = "";
+    
+    questions.forEach((q, index)=>{
+        const userAns = document.getElementById(answer${index}).value.trim();
+        userAnswers.push(userAns);
+        const correct = q.a;
+        let mark = (userAns.toLowerCase() === correct.toLowerCase()) ? 10 : 0; // 10 marks per question
+        score += mark;
+        resultHTML += `<div class="question-box">
+                        <p>${q.q}</p>
+                        <p>Your Answer: ${userAns}</p>
+                        <p>Correct Answer: ${correct}</p>
+                        <p>Marks: ${mark}</p>
+                       </div>`;
+    });
+    
+    resultHTML += <h3>Total Score: ${score}/${questions.length*10}</h3>;
+    document.getElementById("examSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("resultArea").innerHTML = resultHTML;
 }
 
 function goHome() {
-    document.getElementById("subjectMenu").style.display = "none";
+    document.getElementById("examSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "none";
     document.getElementById("home").style.display = "block";
-}
-
-function generateFullMock() {
-    document.getElementById("contentArea").innerHTML = `
-    <div class="question-box">
-    <h3>ICAI Pattern - 100 Marks</h3>
-    <p>Q1 (Compulsory - 20 Marks)</p>
-    <p>Q2-6 (Internal Choices - 80 Marks)</p>
-    <p>Total: 100 Marks</p>
-    </div>`;
-}
-
-function generateHalfMock() {
-    document.getElementById("contentArea").innerHTML = `
-    <div class="question-box">
-    <h3>Quick Mock - 50 Marks</h3>
-    <p>Attempt any 3 questions.</p>
-    <p>Total: 50 Marks</p>
-    </div>`;
-}
-
-function showNotes() {
-    document.getElementById("contentArea").innerHTML = `
-    <div class="question-box">
-    <h3>Important Notes</h3>
-    <p>• Frequently tested topics</p>
-    <p>• Important amendments</p>
-    <p>• Practical adjustments</p>
-    </div>`;
-}
-
-function showDifficulty() {
-    document.getElementById("contentArea").innerHTML = `
-    <div class="question-box">
-    <h3>Select Difficulty</h3>
-    <button onclick="difficulty('Easy')">Easy</button>
-    <button onclick="difficulty('Medium')">Medium</button>
-    <button onclick="difficulty('Hard')">Hard</button>
-    </div>`;
-}
-
-function difficulty(level) {
-    document.getElementById("contentArea").innerHTML = `
-    <div class="question-box">
-    <h3>${level} Level Practice</h3>
-    <p>Generated ${level} difficulty question.</p>
-    </div>`;
 }
 </script>
 
