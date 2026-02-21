@@ -1,10 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Private Page</title>
+<title>Ola Mien Patola - CA Inter</title>
+<style>
+body {
+    font-family: Arial;
+    background-color: #ffd6e7;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background-color: #ff8fab;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.section { display: none; }
+</style>
 </head>
-<body style="text-align:center; font-family:Arial; margin-top:100px;">
-  <h1>This page is only for my sister ❤️</h1>
-  <p>If you are not her, please close this page 😊</p>
+<body>
+
+<h1>Welcome Saili 💕</h1>
+<h3>CA Inter Practice App</h3>
+
+<div id="home">
+    <button onclick="openSubject('accounts')">Advanced Accounting</button>
+    <button onclick="openSubject('law')">Corporate & Other Laws</button>
+    <button onclick="openSubject('tax')">Taxation</button>
+    <button onclick="openSubject('cost')">Cost & Management Accounting</button>
+    <button onclick="openSubject('audit')">Auditing & Ethics</button>
+    <button onclick="openSubject('fm')">Financial Management & SM</button>
+</div>
+
+<div id="accounts" class="section">
+    <h2>Advanced Accounting</h2>
+    <p><b>Section A (Compulsory)</b></p>
+    <p>Q1: Accounting for Amalgamation (20 Marks)</p>
+    <p><b>Section B (Any 2 of 3)</b></p>
+    <p>Q2: Branch Accounts</p>
+    <p>Q3: AS 15 Employee Benefits</p>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<div id="law" class="section">
+    <h2>Corporate & Other Laws</h2>
+    <p>Q1: Directors – Appointment & Removal</p>
+    <p>Q2: Contract Act Essentials</p>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<div id="tax" class="section">
+    <h2>Taxation</h2>
+    <p>Q1: Residential Status</p>
+    <p>Q2: GST Supply & Time of Supply</p>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<div id="cost" class="section">
+    <h2>Cost & Management Accounting</h2>
+    <p>Q1: Marginal Costing</p>
+    <p>Q2: Standard Costing Variances</p>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<div id="audit" class="section">
+    <h2>Auditing & Ethics</h2>
+    <p>Q1: Audit Evidence</p>
+    <p>Q2: CARO Reporting</p>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<div id="fm" class="section">
+    <h2>Financial Management & SM</h2>
+    <p>Q1: Capital Budgeting</p>
+    <p>Q2: Risk Management</p>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<script>
+function openSubject(id) {
+    document.getElementById("home").style.display = "none";
+    document.getElementById(id).style.display = "block";
+}
+function goHome() {
+    var sections = document.getElementsByClassName("section");
+    for (var i = 0; i < sections.length; i++) {
+        sections[i].style.display = "none";
+    }
+    document.getElementById("home").style.display = "block";
+}
+</script>
+
 </body>
 </html>
