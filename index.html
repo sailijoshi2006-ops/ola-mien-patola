@@ -11,8 +11,8 @@ body {
     padding: 20px;
 }
 button {
-    padding: 10px 20px;
-    margin: 10px;
+    padding: 10px 15px;
+    margin: 8px;
     border: none;
     background-color: #ff8fab;
     color: white;
@@ -20,12 +20,18 @@ button {
     cursor: pointer;
 }
 .section { display: none; }
+.question-box {
+    background: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 10px;
+}
 </style>
 </head>
 <body>
 
-<h1>Welcome Saili 💕</h1>
-<h3>CA Inter Practice App</h3>
+<h1>Ola Mien Patola 💕</h1>
+<h3>CA Inter Practice Portal</h3>
 
 <div id="home">
     <button onclick="openSubject('accounts')">Advanced Accounting</button>
@@ -36,62 +42,79 @@ button {
     <button onclick="openSubject('fm')">Financial Management & SM</button>
 </div>
 
-<div id="accounts" class="section">
-    <h2>Advanced Accounting</h2>
-    <p><b>Section A (Compulsory)</b></p>
-    <p>Q1: Accounting for Amalgamation (20 Marks)</p>
-    <p><b>Section B (Any 2 of 3)</b></p>
-    <p>Q2: Branch Accounts</p>
-    <p>Q3: AS 15 Employee Benefits</p>
-    <button onclick="goHome()">Back</button>
-</div>
+<div id="subjectMenu" class="section">
+    <h2 id="subjectTitle"></h2>
 
-<div id="law" class="section">
-    <h2>Corporate & Other Laws</h2>
-    <p>Q1: Directors – Appointment & Removal</p>
-    <p>Q2: Contract Act Essentials</p>
+    <button onclick="generateFullMock()">Generate 100 Mark Mock</button>
+    <button onclick="generateHalfMock()">Generate 50 Mark Mock</button>
+    <button onclick="showNotes()">Important Notes</button>
+    <button onclick="showDifficulty()">Hard → Easy Practice</button>
     <button onclick="goHome()">Back</button>
-</div>
 
-<div id="tax" class="section">
-    <h2>Taxation</h2>
-    <p>Q1: Residential Status</p>
-    <p>Q2: GST Supply & Time of Supply</p>
-    <button onclick="goHome()">Back</button>
-</div>
-
-<div id="cost" class="section">
-    <h2>Cost & Management Accounting</h2>
-    <p>Q1: Marginal Costing</p>
-    <p>Q2: Standard Costing Variances</p>
-    <button onclick="goHome()">Back</button>
-</div>
-
-<div id="audit" class="section">
-    <h2>Auditing & Ethics</h2>
-    <p>Q1: Audit Evidence</p>
-    <p>Q2: CARO Reporting</p>
-    <button onclick="goHome()">Back</button>
-</div>
-
-<div id="fm" class="section">
-    <h2>Financial Management & SM</h2>
-    <p>Q1: Capital Budgeting</p>
-    <p>Q2: Risk Management</p>
-    <button onclick="goHome()">Back</button>
+    <div id="contentArea"></div>
 </div>
 
 <script>
-function openSubject(id) {
+let currentSubject = "";
+
+function openSubject(subject) {
+    currentSubject = subject;
     document.getElementById("home").style.display = "none";
-    document.getElementById(id).style.display = "block";
+    document.getElementById("subjectMenu").style.display = "block";
+    document.getElementById("subjectTitle").innerText = subject.toUpperCase();
+    document.getElementById("contentArea").innerHTML = "";
 }
+
 function goHome() {
-    var sections = document.getElementsByClassName("section");
-    for (var i = 0; i < sections.length; i++) {
-        sections[i].style.display = "none";
-    }
+    document.getElementById("subjectMenu").style.display = "none";
     document.getElementById("home").style.display = "block";
+}
+
+function generateFullMock() {
+    document.getElementById("contentArea").innerHTML = `
+    <div class="question-box">
+    <h3>ICAI Pattern - 100 Marks</h3>
+    <p>Q1 (Compulsory - 20 Marks)</p>
+    <p>Q2-6 (Internal Choices - 80 Marks)</p>
+    <p>Total: 100 Marks</p>
+    </div>`;
+}
+
+function generateHalfMock() {
+    document.getElementById("contentArea").innerHTML = `
+    <div class="question-box">
+    <h3>Quick Mock - 50 Marks</h3>
+    <p>Attempt any 3 questions.</p>
+    <p>Total: 50 Marks</p>
+    </div>`;
+}
+
+function showNotes() {
+    document.getElementById("contentArea").innerHTML = `
+    <div class="question-box">
+    <h3>Important Notes</h3>
+    <p>• Frequently tested topics</p>
+    <p>• Important amendments</p>
+    <p>• Practical adjustments</p>
+    </div>`;
+}
+
+function showDifficulty() {
+    document.getElementById("contentArea").innerHTML = `
+    <div class="question-box">
+    <h3>Select Difficulty</h3>
+    <button onclick="difficulty('Easy')">Easy</button>
+    <button onclick="difficulty('Medium')">Medium</button>
+    <button onclick="difficulty('Hard')">Hard</button>
+    </div>`;
+}
+
+function difficulty(level) {
+    document.getElementById("contentArea").innerHTML = `
+    <div class="question-box">
+    <h3>${level} Level Practice</h3>
+    <p>Generated ${level} difficulty question.</p>
+    </div>`;
 }
 </script>
 
